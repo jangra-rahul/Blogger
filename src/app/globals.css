@@ -28,6 +28,7 @@ body {
 }
 
 * {
+  list-style-type: none !important;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -70,6 +71,26 @@ a {
 }
 .clr_gray {
   color: var(--clr-gray);
+}
+
+.clr_gray1 {
+  color: rgb(225, 228, 228);
+}
+
+.slider-wrapper {
+  padding-left: 1rem; /* same as container left */
+  padding-right: 0;
+}
+
+input {
+  outline: none !important;
+}
+
+.dot {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #ccc !important;
+  border-radius: 50% !important;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,50 +1,54 @@
 import CustomNavbar from "@/app/CustomNavbar";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Image from "next/image"; // if you're using Next.js, otherwise use <img>
-import HeroImage from "../../assets/images/png/img.png"; // Adjust the path as necessary
+import Image from "next/image";
+import HeroImage from "../../assets/images/png/img.png";
 
 const Hero = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <>
+      {/* NAVBAR */}
       <CustomNavbar />
 
-      <Container fluid className="px-0 flex-grow-1">
-        <Row className="g-0">
-          {" "}
-          {/* Adjust for navbar height */}
-          {/* LEFT: TEXT SECTION */}
-          <Col
-            md={6}
-            className="bg-black ps-md-3 d-flex align-items-center justify-content-center"
-          >
-            {" "}
-            <div className="p-5 ms-5">
-              <h1 className="text-white fs_64 mb-0  display-4 fw-normal">
-                Today’s Special
-              </h1>
-              <h4 className="text-white fw-bold fs_32 mb-0 mt-4">
-                Fragmented Realities: <br />
-                Exploring the Intersection of Nature
-              </h4>
-              <p className="text-white fs_18 fw-normal mb-0 mt-2">
-                In a visually saturated world, minimalist monochrome art can
-                offer a rare moment of reflection. This striking digital collage
-                fuses stark landscapes, celestial forms, and architectural
-                elements into a dreamlike narrative.
-              </p>
-            </div>
+      {/* HERO SECTION */}
+      <div className="w-100 bg-black">
+        <Row className="g-0 align-items-center">
+          {/* LEFT SECTION */}
+          <Col md={6} className="bg-black">
+            {/* 👇 This container will align with Navbar's container */}
+            <Container>
+              <div className="py-5 ps-md-5 ms-md-5">
+                <h1 className="text-white display-4 fw-normal mb-3">
+                  Today’s Special
+                </h1>
+                <h4 className="text-white fw-bold fs-3 mb-3">
+                  Fragmented Realities: <br />
+                  Exploring the Intersection of Nature
+                </h4>
+                <p className="text-white fs-5 mb-0">
+                  In a visually saturated world, minimalist monochrome art can
+                  offer a rare moment of reflection. This striking digital
+                  collage fuses stark landscapes, celestial forms, and
+                  architectural elements into a dreamlike narrative.
+                </p>
+              </div>
+            </Container>
           </Col>
-          {/* RIGHT: IMAGE SECTION */}
+
+          {/* RIGHT SECTION */}
           <Col md={6}>
-            <div className="h-100 w-100">
-              {/* Use your own image file here */}
-              <Image src={HeroImage} alt="Hero" className=" h-100  w-100" />
+            <div className="w-100 h-100">
+              <Image
+                src={HeroImage}
+                alt="Hero"
+                className="w-100 h-100"
+                style={{ objectFit: "cover" }}
+              />
             </div>
           </Col>
         </Row>
-      </Container>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -48,6 +48,9 @@ const PicksSection = () => {
     <section className="py-5 bg-white">
       <Container>
         <h3 className="fw-bold mb-4">Today’s Picks</h3>
+      </Container>
+      <div style={{ border: "1px solid #eee7e7" }} className=" my-4"></div>
+      <Container>
         <Row>
           {picks.map((pick) => (
             <Col key={pick.id} md={6} lg={3} className="mb-4">
@@ -77,6 +80,7 @@ const PicksSection = () => {
           ))}
         </Row>
       </Container>
+      <div style={{ border: "1px solid #ccc" }} className=""></div>
     </section>
   );
 };
