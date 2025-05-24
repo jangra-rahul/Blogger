@@ -7,6 +7,7 @@ import pulsh_icon from "../../assets/images/svg/pulsh_icon.svg";
 import profileImg from "../../assets/images/svg/profileImg.svg";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const FilterSection = () => {
   const [activeTab, setActiveTab] = useState("UI/UX Design");
@@ -46,40 +47,42 @@ const FilterSection = () => {
             </Nav>
 
             {/* First blog */}
-            <Card className="mb-4 w-100 border-0">
-              <Card.Body className="w-100 px-0">
-                <div className="row  align-items-center">
-                  <div className="col-md-8">
-                    <div className="d-flex gap-2 align-items-center mb-2">
-                      <Image
-                        src={profileImg}
-                        alt="profileImg"
-                        className="me-2"
-                      />
-                      <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                        By Arav Patel &nbsp;
-                        <span className="dot"></span> &nbsp; May 07
-                      </small>
+            <Link className=" tdn" href="/blog-details">
+              <Card className="mb-4 w-100 border-0">
+                <Card.Body className="w-100 px-0">
+                  <div className="row  align-items-center">
+                    <div className="col-md-8">
+                      <div className="d-flex gap-2 align-items-center mb-2">
+                        <Image
+                          src={profileImg}
+                          alt="profileImg"
+                          className="me-2"
+                        />
+                        <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
+                          By Arav Patel &nbsp;
+                          <span className="dot"></span> &nbsp; May 07
+                        </small>
+                      </div>
+                      <Card.Title className="fs_32 fw-bold">
+                        The 2008 Pepsi Logo Redesign
+                      </Card.Title>
+                      <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
+                        In the world of branding, few logos are as iconic—or as
+                        frequently debated—as Pepsi’s...
+                      </Card.Text>
                     </div>
-                    <Card.Title className="fs_32 fw-bold">
-                      The 2008 Pepsi Logo Redesign
-                    </Card.Title>
-                    <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
-                      In the world of branding, few logos are as iconic—or as
-                      frequently debated—as Pepsi’s...
-                    </Card.Text>
+                    <div className="col-md-4">
+                      <Image
+                        src={filterImg}
+                        alt="filterImg"
+                        className="img-fluid w-100 mt-2"
+                        style={{ maxHeight: "200px", objectFit: "cover" }}
+                      />
+                    </div>
                   </div>
-                  <div className="col-md-4">
-                    <Image
-                      src={filterImg}
-                      alt="filterImg"
-                      className="img-fluid w-100 mt-2"
-                      style={{ maxHeight: "200px", objectFit: "cover" }}
-                    />
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
+                </Card.Body>
+              </Card>
+            </Link>
             <div
               style={{ border: "1px solid #eee7e7" }}
               className=" mt-4 "
@@ -87,40 +90,42 @@ const FilterSection = () => {
             {/* Repeatable Blog List */}
             {[1, 2, 3].map((_, index) => (
               <>
-                <Card className="mb-4 border-0" key={index}>
-                  <Card.Body className="px-0">
-                    <div className="row align-items-center">
-                      <div className="col-md-8">
-                        <div className="d-flex gap-2 align-items-center mb-2">
-                          <Image
-                            src={profileImg}
-                            alt="profileImg"
-                            className="me-2"
-                          />
-                          <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                            By Arav Patel &nbsp;
-                            <span className="dot"></span> &nbsp; May 07
-                          </small>
+                <Link className=" tdn" href="/blog-details">
+                  <Card className="mb-4 border-0" key={index}>
+                    <Card.Body className="px-0">
+                      <div className="row align-items-center">
+                        <div className="col-md-8">
+                          <div className="d-flex gap-2 align-items-center mb-2">
+                            <Image
+                              src={profileImg}
+                              alt="profileImg"
+                              className="me-2"
+                            />
+                            <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
+                              By Arav Patel &nbsp;
+                              <span className="dot"></span> &nbsp; May 07
+                            </small>
+                          </div>
+                          <Card.Title className="fs_32 fw-bold">
+                            The 2008 Pepsi Logo Redesign
+                          </Card.Title>
+                          <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
+                            In the world of branding, few logos are as iconic—or
+                            as frequently debated—as Pepsi’s...
+                          </Card.Text>
                         </div>
-                        <Card.Title className="fs_32 fw-bold">
-                          The 2008 Pepsi Logo Redesign
-                        </Card.Title>
-                        <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
-                          In the world of branding, few logos are as iconic—or
-                          as frequently debated—as Pepsi’s...
-                        </Card.Text>
+                        <div className="col-md-4">
+                          <Image
+                            src={filterImg}
+                            alt="filterImg"
+                            className="img-fluid w-100 mt-2"
+                            style={{ maxHeight: "200px", objectFit: "cover" }}
+                          />
+                        </div>
                       </div>
-                      <div className="col-md-4">
-                        <Image
-                          src={filterImg}
-                          alt="filterImg"
-                          className="img-fluid w-100 mt-2"
-                          style={{ maxHeight: "200px", objectFit: "cover" }}
-                        />
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
+                    </Card.Body>
+                  </Card>
+                </Link>
                 <div
                   style={{ border: "1px solid #eee7e7" }}
                   className=" mt-4 "
