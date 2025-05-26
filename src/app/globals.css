@@ -9,7 +9,7 @@
   --fs-xxl: 30px;
   --fs-3xl: 32px;
   --fs-4xl: 40px;
-  --fs-5xl: 48px;
+  --fs-5xl: 45px;
   --fs-6xl: 64px;
   --fs-7xl: 96px;
   /* Color */
@@ -113,5 +113,21 @@ input {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    /* Font Size */
+    --fs-sm: 14px;
+    --fs-md: 16px;
+    --fs-lg: 18px;
+    --fs-xl: 20px;
+    --fs-xxl: 30px;
+    --fs-3xl: 32px;
+    --fs-4xl: 40px;
+    --fs-5xl: 45px;
+    --fs-6xl: 64px;
+    --fs-7xl: 56px;
   }
 }

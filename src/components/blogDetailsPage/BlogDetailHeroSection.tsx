@@ -18,7 +18,7 @@ const BlogDetailHeroSection = () => {
       <div className="py-5">
         <Container>
           <Row>
-            <Col lg={9} className="pe-0 pe-lg-5">
+            <Col lg={9} className=" pe-lg-5">
               <h2 className="fw-bold mb-2 fs_48 ff_m">
                 The 2008 Pepsi Logo Redesign{" "}
               </h2>
@@ -37,9 +37,8 @@ const BlogDetailHeroSection = () => {
               </div>
               <Image
                 src={videoImg}
-                height={550}
                 alt="videoImg"
-                className="me-2 object-fit-cover w-100 mt-4"
+                className=" h-auto object-fit-cover w-100 mt-4"
               />
               <p className="mb-0 fs_14 ff_m clr_gray mt-4">
                 In the world of branding, few logos are as iconic—or as
@@ -65,9 +64,8 @@ const BlogDetailHeroSection = () => {
               </p>
               <Image
                 src={detail_img}
-                height={940}
                 alt="videoImg"
-                className="me-2 object-fit-cover w-100 mt-5"
+                className="me-2 h-auto  w-100 mt-5"
               />
               <h4 className=" mt-5 fs_18 fw-bold ff_m mb-0">
                 The Design: What's New in the 2008 Logo?
