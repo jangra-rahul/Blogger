@@ -110,6 +110,81 @@ input {
   list-style-type: disc !important;
 }
 
+.blog-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em; /* Adjust line height if needed */
+  max-height: 3em; /* line-height * number of lines */
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.blog-description p {
+  font-size: 16px;
+  margin-top: 0px !important;
+  font-weight: 400 !important;
+}
+.blog-description h3 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description h2 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description h1 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description h4 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description h5 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description h6 {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+.blog-description span {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+
+.custom-pagination .page-item {
+  margin: 0 4px;
+  border-radius: 999px !important;
+  overflow: hidden;
+}
+
+.custom-pagination .page-link {
+  border: 1px solid #bebbbb;
+  border-radius: 50% !important;
+  padding: 7px 12px;
+  color: black;
+  background-color: white;
+  font-weight: 500;
+  min-width: 36px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-pagination .page-link:hover {
+  background-color: #000;
+  color: white !important;
+}
+
+.custom-pagination .page-item.active .page-link {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import filterImg from "../../assets/images/png/filterImg.png";
 import filterImg2 from "../../assets/images/svg/blog-img.png";
 import img1 from "../../assets/images/svg/Img1.png";
@@ -10,269 +10,214 @@ import profileImg from "../../assets/images/svg/profileImg.svg";
 
 import Image from "next/image";
 import Link from "next/link";
-const PostsSection = () => {
+import Pagination from "./Pagination";
+
+type FilterSectionProps = {
+  popularPosts: any;
+  data: any;
+};
+const PostsSection = ({ popularPosts, data }: FilterSectionProps) => {
+  const [picksData, setPicksData] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(null);
+  const totalPages = 25;
+  const BASE_URL = "https://newtopics-blogger.s3.ap-south-1.amazonaws.com/";
+  useEffect(() => {
+    setPicksData(popularPosts);
+    setPosts(data?.data);
+    setLoading(false);
+  }, [popularPosts]);
+
+  console.log(posts);
+  const formatDate = (createdAt: any) => {
+    const date = new Date(createdAt);
+    const month = date.toLocaleString("default", { month: "long" }); // e.g. "September"
+    const day = date.getDate(); // e.g. 5
+    return { month, day };
+  };
   return (
     <div>
       {" "}
       <div className="py-4">
-        <Container>
-          {/* Tabs */}
+        {loading ? (
+          <>
+            <Container className="d-flex justify-content-center py-5">
+              <Spinner animation="border" className="text-black" />
+            </Container>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Container>
+              {/* Tabs */}
 
-          {/* Blog content and sidebar */}
-          <Row>
-            <Col xl={9} lg={9} className="pe-lg-5 ">
-              {/* First blog */}
-              <Link className=" tdn" href="/blog-details">
-                <Card className="mb-4  w-100 border-0">
-                  <Card.Body className="w-100 px-0">
-                    <div className="row  align-items-center">
-                      <div className="col-md-8">
-                        <div className="d-flex gap-2 align-items-center mb-2">
-                          <Image
-                            src={profileImg}
-                            alt="profileImg"
-                            className="me-2"
-                          />
-                          <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                            By Arav Patel &nbsp;
-                            <span className="dot"></span> &nbsp; May 07
-                          </small>
-                        </div>
-                        <Card.Title className="fs_32 fw-bold">
-                          The 2008 Pepsi Logo Redesign
-                        </Card.Title>
-                        <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
-                          In the world of branding, few logos are as iconic—or
-                          as frequently debated—as Pepsi’s...
-                        </Card.Text>
-                        <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                          UIUX &nbsp;
-                          <span className="fs_48 clr_gray1">•</span> &nbsp;
-                          Figma
-                        </small>
-                      </div>
-                      <div className="col-md-4">
-                        <Image
-                          src={filterImg}
-                          alt="filterImg"
-                          className="img-fluid w-100 mt-2"
-                          style={{ maxHeight: "200px", objectFit: "cover" }}
-                        />
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Link>
-              <div
-                style={{ border: "1px solid #eee7e7" }}
-                className=" mt-4 "
-              ></div>
-              {/* Repeatable Blog List */}
-              {[1, 2, 3].map((_, index) => (
-                <div key={index}>
-                  <Link className=" tdn" href="/blog-details">
-                    <Card className="mb-4 border-0">
-                      <Card.Body className="px-0">
-                        <div className="row align-items-center">
-                          <div className="col-md-8">
-                            <div className="d-flex gap-2 align-items-center mb-2">
-                              <Image
-                                src={profileImg}
-                                alt="profileImg"
-                                className="me-2"
-                              />
-                              <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                                By Arav Patel &nbsp;
-                                <span className="dot"></span> &nbsp; May 07
-                              </small>
+              {/* Blog content and sidebar */}
+              <Row>
+                <Col xl={9} lg={9} className="pe-lg-5 ">
+                  {/* Repeatable Blog List */}
+                  <div>
+                    {posts?.length > 0 ? (
+                      <>
+                        {" "}
+                        {posts?.map((item: any, index: any) => {
+                          const { month, day } = formatDate(item.createdAt);
+                          return (
+                            <div key={index}>
+                              <Link
+                                className=" tdn"
+                                href={`/blog-details/${item?.slug}`}
+                              >
+                                <Card className="mb-4 border-0">
+                                  <Card.Body className="px-0">
+                                    <div className="row align-items-center">
+                                      <div className="col-md-8">
+                                        <div className="d-flex gap-2 align-items-center mb-2">
+                                          {item?.image && (
+                                            <Image
+                                              src={`${BASE_URL}${item?.image}`}
+                                              alt="filterImg"
+                                              className=" mt-2"
+                                              width={40}
+                                              height={40}
+                                              style={{ borderRadius: "50%" }}
+                                            />
+                                          )}
+                                          <div>
+                                            <small className="fs_14  ff fw-normal clr_gray mb-0">
+                                              {item?.categoryId?.name}
+                                            </small>
+                                            <p className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
+                                              <span className="dot"></span>{" "}
+                                              &nbsp; {month} {day}
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <Card.Title className="fs_32 mt-2 fw-bold">
+                                          {item?.title}
+                                        </Card.Title>
+                                        <Card.Text
+                                          className="text-muted mt-3 blog-description fs_14 fw-normal"
+                                          dangerouslySetInnerHTML={{
+                                            __html: item.description || "",
+                                          }}
+                                        />
+                                      </div>
+                                      <div className="col-md-4">
+                                        <Image
+                                          width={300}
+                                          height={300}
+                                          src={`${BASE_URL}${item?.image}`}
+                                          alt="filterImg"
+                                          className="img-fluid rounded-3 w-100 mt-2"
+                                          style={{
+                                            maxHeight: "200px",
+                                            objectFit: "cover",
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                  </Card.Body>
+                                </Card>
+                              </Link>
+                              <div
+                                style={{ border: "1px solid #eee7e7" }}
+                                className=" mt-4 "
+                              ></div>
                             </div>
-                            <Card.Title className="fs_32 fw-bold">
-                              The 2008 Pepsi Logo Redesign
-                            </Card.Title>
-                            <Card.Text className="fs_14 ff fw-normal clr_gray mb-0">
-                              In the world of branding, few logos are as
-                              iconic—or as frequently debated—as Pepsi’s...
-                            </Card.Text>
-                            <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                              UIUX &nbsp;
-                              <span className="fs_48 clr_gray1">•</span> &nbsp;
-                              Figma
-                            </small>
-                          </div>
-                          <div className="col-md-4">
-                            <Image
-                              src={filterImg2}
-                              alt="filterImg"
-                              className="img-fluid w-100 mt-2"
-                              style={{ maxHeight: "200px", objectFit: "cover" }}
-                            />
-                          </div>
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  <div
-                    style={{ border: "1px solid #eee7e7" }}
-                    className=" mt-4 "
-                  ></div>
-                </div>
-              ))}
-            </Col>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <p className="mt-4">No Blogs Found</p>
+                    )}
 
-            {/* Sidebar */}
-            <Col xl={3} lg={3} className="mt-4 mt-lg-3 border-start ps-lg-4">
-              <Card className="mb-4 border-0">
-                <Image
-                  src={filterImg1}
-                  alt="filterImg"
-                  className="img-fluid rounded-2 w-100 mt-2"
-                  style={{ objectFit: "cover" }}
-                />
-                <Card.Body className="px-0">
-                  <Card.Text>The third Option for nation</Card.Text>
-                </Card.Body>
-              </Card>
-
-              <h5 className="mb-3">Popular Posts</h5>
-              {[1, 2, 3].map((_, index) => (
-                <>
-                  <div className=" mb-3" key={index}>
-                    <div className="d-flex gap-2 align-items-center">
-                      <Image
-                        src={filterImg}
-                        alt="filterImg"
-                        className=" mt-2"
-                        width={40}
-                        height={40}
-                        style={{ borderRadius: "50%" }}
+                    <div className="d-flex justify-content-center py-5">
+                      <Pagination
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={(pg: any) => setPage(pg)}
                       />
-
-                      <small className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
-                        By Arav Patel &nbsp;
-                        <span className="dot"></span> &nbsp; May 07
-                      </small>
-                    </div>
-                    <div className="mt-2">
-                      <p className="mb-0 fs_18 fw-semibold  small">
-                        Understanding Minimalist Design
-                      </p>
                     </div>
                   </div>
-                  <div
-                    style={{ border: "1px solid #eee7e7" }}
-                    className=" my-3 "
-                  ></div>
-                </>
-              ))}
-            </Col>
-          </Row>
-          <h4 className="mt-5 fs_30 fw-bold mb-0">Keep Reading</h4>
-          <Row className="mt-2">
-            <Col lg={9}>
-              <Row>
-                <Col md={6} className="mt-3">
-                  <Row className=" align-items-center">
-                    <Col md={5}>
-                      <Image
-                        src={img1}
-                        alt="filterImg"
-                        className="rounded-2 w-100 mt-2"
-                        style={{ maxHeight: "300px", objectFit: "cover" }}
-                      />
-                    </Col>
-                    <Col md={7} className="mt-3 mt-md-0">
-                      <div className="">
-                        <h4 className=" fs_16 fw-semibold mb-0">
-                          Understanding Minimalist Design Design
-                        </h4>
-                        <p className=" fs_14 mt-2 ff fw-normal clr_gray mb-0">
-                          Minimalist design is all about simplicity, clarity,
-                          and purpose. In this blog, we explore how to apply
-                          minimalist principles to UI/UX...
-                        </p>
-                      </div>
-                    </Col>
-                  </Row>
                 </Col>
-                <Col md={6} className="mt-3">
-                  <Row className=" align-items-center">
-                    <Col md={5}>
-                      <Image
-                        src={img2}
-                        alt="filterImg"
-                        className="rounded-2 w-100 mt-2"
-                        style={{ maxHeight: "300px", objectFit: "cover" }}
-                      />
-                    </Col>
-                    <Col md={7} className="mt-3 mt-md-0">
-                      <div className="">
-                        <h4 className=" fs_16 fw-semibold mb-0">
-                          Understanding Minimalist Design Design
-                        </h4>
-                        <p className=" fs_14 mt-2 ff fw-normal clr_gray mb-0">
-                          Minimalist design is all about simplicity, clarity,
-                          and purpose. In this blog, we explore how to apply
-                          minimalist principles to UI/UX...
-                        </p>
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col md={6} className="mt-3">
-                  <Row className=" align-items-center">
-                    <Col md={5}>
-                      <Image
-                        src={img2}
-                        alt="filterImg"
-                        className="rounded-2 w-100 mt-2"
-                        style={{ maxHeight: "300px", objectFit: "cover" }}
-                      />
-                    </Col>
-                    <Col md={7} className="mt-3 mt-md-0">
-                      <div className="">
-                        <h4 className=" fs_16 fw-semibold mb-0">
-                          Understanding Minimalist Design Design
-                        </h4>
-                        <p className=" fs_14 mt-2 ff fw-normal clr_gray mb-0">
-                          Minimalist design is all about simplicity, clarity,
-                          and purpose. In this blog, we explore how to apply
-                          minimalist principles to UI/UX...
-                        </p>
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col md={6} className="mt-3">
-                  <Row className=" align-items-center">
-                    <Col md={5}>
-                      <Image
-                        src={filterImg2}
-                        alt="filterImg"
-                        className="rounded-2 w-100 mt-2"
-                        style={{ maxHeight: "300px", objectFit: "cover" }}
-                      />
-                    </Col>
-                    <Col md={7} className="mt-3 mt-md-0">
-                      <div className="">
-                        <h4 className=" fs_16 fw-semibold mb-0">
-                          Understanding Minimalist Design Design
-                        </h4>
-                        <p className=" fs_14 mt-2 ff fw-normal clr_gray mb-0">
-                          Minimalist design is all about simplicity, clarity,
-                          and purpose. In this blog, we explore how to apply
-                          minimalist principles to UI/UX...
-                        </p>
-                      </div>
-                    </Col>
-                  </Row>
+
+                {/* Sidebar */}
+                <Col
+                  xl={3}
+                  lg={3}
+                  className="mt-4 mt-lg-0 border-start ps-lg-4"
+                >
+                  <Card className="mb-4 border-0">
+                    <Image
+                      src={filterImg1}
+                      alt="filterImg"
+                      className="img-fluid rounded-2 w-100 mt-2"
+                      style={{ objectFit: "cover" }}
+                    />
+                    <Card.Body className="px-0">
+                      <Card.Text>The third Option for nation</Card.Text>
+                    </Card.Body>
+                  </Card>
+
+                  <h5 className="mb-3">Popular Posts</h5>
+                  {picksData.length > 0 ? (
+                    <>
+                      {" "}
+                      {picksData?.map((item: any, index: any) => {
+                        const { month, day } = formatDate(item?.createdAt);
+                        return (
+                          <div key={index}>
+                            <Link
+                              className="text-black tdn"
+                              href={`/blog-details/${item?.slug}`}
+                            >
+                              <div className=" mb-3">
+                                <div className="d-flex gap-2 align-items-center">
+                                  {item?.image && (
+                                    <Image
+                                      src={`${BASE_URL}${item.image}`}
+                                      alt="filterImg"
+                                      className=" mt-2"
+                                      width={40}
+                                      height={40}
+                                      style={{ borderRadius: "50%" }}
+                                    />
+                                  )}
+
+                                  <div>
+                                    <small className="fs_14  ff fw-normal clr_gray mb-0">
+                                      {item?.categoryId?.name}
+                                    </small>
+                                    <p className="fs_14 d-flex align-items-center ff fw-normal clr_gray mb-0">
+                                      <span className="dot"></span> &nbsp;{" "}
+                                      {month} {day}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="mt-2">
+                                  <p className="mb-0 fs_18 fw-semibold  small">
+                                    {item?.title}
+                                  </p>
+                                </div>
+                              </div>
+                            </Link>
+                            <div
+                              style={{ border: "1px solid #eee7e7" }}
+                              className=" my-3 "
+                            ></div>
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    "No Populer Post Found"
+                  )}
                 </Col>
               </Row>
-              <p className=" fs_14 mt-4 ff fw-normal clr_gray mb-0 text-end">
-                See more..
-              </p>
-            </Col>
-          </Row>
-        </Container>
+            </Container>
+          </>
+        )}
       </div>
     </div>
   );
